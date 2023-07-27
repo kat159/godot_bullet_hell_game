@@ -1,0 +1,43 @@
+[gd_scene load_steps=7 format=3 uid="uid://bahi35yl5y2wf"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_3lklf"]
+[ext_resource type="Texture2D" uid="uid://d3u7k0742d5ug" path="res://face_happy.png" id="2_oqc1a"]
+[ext_resource type="Texture2D" uid="uid://8j32onnr4qo3" path="res://face_sad.png" id="3_omqa0"]
+[ext_resource type="PackedScene" uid="uid://bfmd35l7su4pg" path="res://ServerDemo2/base_enemy_2.tscn" id="4_va4yn"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_j6s30"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_oqc1a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_omqa0")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ir7in"]
+radius = 27.0
+
+[node name="ServerDemo2" type="Node2D"]
+
+[node name="Player" type="Area2D" parent="."]
+collision_mask = 2
+script = ExtResource("1_3lklf")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
+sprite_frames = SubResource("SpriteFrames_j6s30")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource("CircleShape2D_ir7in")
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+
+[node name="BaseEnemy2" parent="." instance=ExtResource("4_va4yn")]
+
+[connection signal="area_entered" from="Player" to="Player" method="_on_area_entered"]
+[connection signal="body_shape_entered" from="Player" to="Player" method="_on_body_shape_entered"]
+[connection signal="body_shape_exited" from="Player" to="Player" method="_on_body_shape_exited"]

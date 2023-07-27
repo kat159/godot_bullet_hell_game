@@ -1,0 +1,47 @@
+[gd_scene load_steps=8 format=3 uid="uid://cml7rej0gffa4"]
+
+[ext_resource type="Script" path="res://TestPerformanceDemo/UseSingleArea/Player.gd" id="1_w7c4m"]
+[ext_resource type="Texture2D" uid="uid://d3u7k0742d5ug" path="res://face_happy.png" id="2_yv6ni"]
+[ext_resource type="Texture2D" uid="uid://8j32onnr4qo3" path="res://face_sad.png" id="3_niom1"]
+[ext_resource type="PackedScene" uid="uid://dagu1a2i6ulpj" path="res://TestPerformanceDemo/UseSingleArea/base_enemy_use_single_area.tscn" id="4_i7p5r"]
+[ext_resource type="Script" path="res://TestPerformanceDemo/UseSingleArea/global_variables.gd" id="5_3p03o"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1g8fw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_yv6ni")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_niom1")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8f8en"]
+radius = 27.0
+
+[node name="UseSingleArea" type="Node2D"]
+
+[node name="Player" type="Area2D" parent="."]
+collision_mask = 2
+script = ExtResource("1_w7c4m")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
+sprite_frames = SubResource("SpriteFrames_1g8fw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource("CircleShape2D_8f8en")
+
+[node name="BaseEnemyUseSingleArea" parent="." instance=ExtResource("4_i7p5r")]
+speed = 10
+spwan_num = 2
+max_num = 10000
+
+[node name="GlobalVariables" type="Node2D" parent="."]
+script = ExtResource("5_3p03o")
+
+[connection signal="area_shape_entered" from="Player" to="Player" method="_on_area_shape_entered"]
+[connection signal="area_shape_exited" from="Player" to="Player" method="_on_area_shape_exited"]

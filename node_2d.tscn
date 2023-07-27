@@ -1,0 +1,43 @@
+[gd_scene load_steps=7 format=3 uid="uid://cl3phk4dsmrc7"]
+
+[ext_resource type="Script" path="res://Node2D.gd" id="1_jqe5d"]
+[ext_resource type="Script" path="res://TestPerformanceDemo/UseSingleArea/Player.gd" id="2_0es8b"]
+[ext_resource type="Texture2D" uid="uid://d3u7k0742d5ug" path="res://face_happy.png" id="3_notlk"]
+[ext_resource type="Texture2D" uid="uid://8j32onnr4qo3" path="res://face_sad.png" id="4_c5e23"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jmrfn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_notlk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_c5e23")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7jda8"]
+radius = 27.0
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Node2D" type="Node2D" parent="."]
+script = ExtResource("1_jqe5d")
+
+[node name="Player" type="Area2D" parent="."]
+collision_mask = 2
+script = ExtResource("2_0es8b")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
+sprite_frames = SubResource("SpriteFrames_jmrfn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource("CircleShape2D_7jda8")
+
+[connection signal="area_shape_entered" from="Player" to="Player" method="_on_area_shape_entered"]
+[connection signal="area_shape_exited" from="Player" to="Player" method="_on_area_shape_exited"]
+[connection signal="body_shape_entered" from="Player" to="Player" method="_on_body_shape_entered"]
+[connection signal="body_shape_exited" from="Player" to="Player" method="_on_body_shape_exited"]

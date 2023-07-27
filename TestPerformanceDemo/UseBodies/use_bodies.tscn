@@ -1,0 +1,42 @@
+[gd_scene load_steps=7 format=3 uid="uid://bxdwmfowu7cc"]
+
+[ext_resource type="Script" path="res://TestPerformanceDemo/UseBodies/Player.gd" id="1_8uw6q"]
+[ext_resource type="Texture2D" uid="uid://d3u7k0742d5ug" path="res://face_happy.png" id="2_cmfgd"]
+[ext_resource type="Texture2D" uid="uid://8j32onnr4qo3" path="res://face_sad.png" id="3_6sesv"]
+[ext_resource type="PackedScene" uid="uid://0fcd68ad78xq" path="res://TestPerformanceDemo/UseBodies/base_enemy_use_body.tscn" id="4_y1u4g"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_c150o"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_cmfgd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_6sesv")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gs6jq"]
+radius = 27.0
+
+[node name="UseBodies" type="Node2D"]
+
+[node name="Player" type="Area2D" parent="."]
+collision_layer = 0
+script = ExtResource("1_8uw6q")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
+sprite_frames = SubResource("SpriteFrames_c150o")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource("CircleShape2D_gs6jq")
+
+[node name="BaseEnemyUseBody" parent="." instance=ExtResource("4_y1u4g")]
+spawn_interval = 1
+max_num = 5000
+
+[connection signal="body_shape_entered" from="Player" to="Player" method="_on_body_shape_entered"]
+[connection signal="body_shape_exited" from="Player" to="Player" method="_on_body_shape_exited"]

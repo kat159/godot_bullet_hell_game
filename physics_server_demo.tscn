@@ -1,0 +1,76 @@
+[gd_scene load_steps=9 format=3 uid="uid://bdkxvw4f34fmw"]
+
+[ext_resource type="Script" path="res://PhysicsServerDemo/Player.gd" id="1_xuwhy"]
+[ext_resource type="Texture2D" uid="uid://vx6cfndn67m" path="res://PhysicsServerDemo/asset/weapon/Crossbow.png" id="4_s5ute"]
+[ext_resource type="PackedScene" uid="uid://b85mpaxridr6h" path="res://PhysicsServerDemo/bullet/arrow.tscn" id="5_y7ao2"]
+[ext_resource type="Shader" path="res://PhysicsServerDemo/base_enemy.gdshader" id="6_mcch5"]
+[ext_resource type="PackedScene" uid="uid://bfmd35l7su4pg" path="res://ServerDemo2/base_enemy_2.tscn" id="6_nmsu4"]
+[ext_resource type="Texture2D" uid="uid://gdsvmbhn83u" path="res://PhysicsServerDemo/asset/hero/knight/knight_run_spritesheet.png" id="7_n632s"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pg2pv"]
+shader = ExtResource("6_mcch5")
+shader_parameter/default_orientation = 0.0
+shader_parameter/frames = 6
+shader_parameter/frame_duration = 0.1
+shader_parameter/texture_h_frames = 6
+shader_parameter/texture_v_frames = 1
+shader_parameter/looping = true
+shader_parameter/modulate = Color(1, 1, 1, 1)
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/flash_modifier = 0.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1bap1"]
+size = Vector2(28.5086, 40.5676)
+
+[node name="PhysicsServerDemo" type="Node2D"]
+
+[node name="Player" type="CharacterBody2D" parent="."]
+position = Vector2(-65, 16)
+rotation = 3.09196
+scale = Vector2(-1, -1)
+script = ExtResource("1_xuwhy")
+
+[node name="Sprite2D" type="Sprite2D" parent="Player"]
+material = SubResource("ShaderMaterial_pg2pv")
+position = Vector2(0.00519562, 0.0271778)
+scale = Vector2(2.74057, 2.78437)
+texture = ExtResource("7_n632s")
+
+[node name="CrossBow" type="Node2D" parent="Player"]
+position = Vector2(14.9319, 1.74295)
+
+[node name="Sprite2D" type="Sprite2D" parent="Player/CrossBow"]
+rotation = 0.773181
+texture = ExtResource("4_s5ute")
+
+[node name="Arrow" parent="Player/CrossBow" instance=ExtResource("5_y7ao2")]
+position = Vector2(3.99506, 0.19845)
+shotgun_bullets_num = 5
+shotgun_deviation_per_bullet = 1.0
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+rotation = 0.0496358
+limit_left = -30
+limit_top = -30
+limit_right = 1000
+limit_bottom = 1000
+limit_smoothed = true
+
+[node name="Area2D" type="Area2D" parent="Player"]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Area2D"]
+position = Vector2(1.94792, 1.09799)
+shape = SubResource("RectangleShape2D_1bap1")
+
+[node name="BaseEnemy2" parent="." instance=ExtResource("6_nmsu4")]
+spwan_num = 20
+
+[connection signal="area_entered" from="Player/Area2D" to="Player" method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="Player/Area2D" to="Player" method="_on_area_2d_area_exited"]
+[connection signal="area_shape_entered" from="Player/Area2D" to="Player" method="_on_area_2d_area_shape_entered"]
+[connection signal="area_shape_exited" from="Player/Area2D" to="Player" method="_on_area_2d_area_shape_exited"]
+[connection signal="body_entered" from="Player/Area2D" to="Player" method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Player/Area2D" to="Player" method="_on_area_2d_body_exited"]
+[connection signal="body_shape_entered" from="Player/Area2D" to="Player" method="_on_area_2d_body_shape_entered"]
+[connection signal="body_shape_exited" from="Player/Area2D" to="Player" method="_on_area_2d_body_shape_exited"]

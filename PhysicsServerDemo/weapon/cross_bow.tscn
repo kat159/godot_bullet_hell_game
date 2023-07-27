@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://bepx3nheghjk2"]
+
+[ext_resource type="Texture2D" uid="uid://vx6cfndn67m" path="res://PhysicsServerDemo/asset/weapon/Crossbow.png" id="1_8pxg5"]
+[ext_resource type="PackedScene" uid="uid://b85mpaxridr6h" path="res://PhysicsServerDemo/bullet/arrow.tscn" id="2_n7bmy"]
+
+[node name="CrossBow" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-3, 0)
+rotation = 0.753621
+texture = ExtResource("1_8pxg5")
+
+[node name="Arrow" parent="." instance=ExtResource("2_n7bmy")]
+shotgun_bullets_num = 3
+shotgun_deviation_per_bullet = 0.00152309

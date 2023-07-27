@@ -1,0 +1,68 @@
+[gd_scene load_steps=10 format=3 uid="uid://dagu1a2i6ulpj"]
+
+[ext_resource type="Script" path="res://TestPerformanceDemo/UseSingleArea/BaseEnemyUseSingleArea.gd" id="1_wgtbp"]
+[ext_resource type="Shader" path="res://PhysicsServerDemo/base_enemy.gdshader" id="2_sq627"]
+[ext_resource type="Texture2D" uid="uid://bmcl73cj25c4l" path="res://PhysicsServerDemo/asset/enemy/Goblin/goblin_run_spritesheet.png" id="3_f1p6o"]
+[ext_resource type="Texture2D" uid="uid://t865fbsg4fn4" path="res://PhysicsServerDemo/asset/enemy/Goblin/goblin_idle_spritesheet.png" id="4_81kpq"]
+[ext_resource type="Shader" path="res://PhysicsServerDemo/enemy_flash.gdshader" id="5_rhmpe"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_a5f5b"]
+shader = ExtResource("2_sq627")
+shader_parameter/default_orientation = 0.0
+shader_parameter/frames = 6
+shader_parameter/frame_duration = 0.1
+shader_parameter/texture_h_frames = 6
+shader_parameter/texture_v_frames = 1
+shader_parameter/looping = true
+shader_parameter/modulate = Color(1, 1, 1, 1)
+shader_parameter/flash_color = Color(1, 0.917647, 0.917647, 1)
+shader_parameter/flash_modifier = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wxs7i"]
+shader = ExtResource("2_sq627")
+shader_parameter/default_orientation = 0.0
+shader_parameter/frames = 6
+shader_parameter/frame_duration = 0.1
+shader_parameter/texture_h_frames = 6
+shader_parameter/texture_v_frames = 1
+shader_parameter/looping = true
+shader_parameter/modulate = Color(1, 1, 1, 1)
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/flash_modifier = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s7v7g"]
+shader = ExtResource("5_rhmpe")
+shader_parameter/default_orientation = 0.0
+shader_parameter/frames = 6
+shader_parameter/frame_duration = 0.1
+shader_parameter/texture_h_frames = 6
+shader_parameter/texture_v_frames = 1
+shader_parameter/looping = true
+shader_parameter/modulate = Color(1, 1, 1, 1)
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/flash_modifier = 1.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0jtij"]
+radius = 8.06226
+
+[node name="BaseEnemyUseSingleArea" type="Node2D"]
+script = ExtResource("1_wgtbp")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 2
+monitoring = false
+
+[node name="Run" type="Sprite2D" parent="Area2D"]
+material = SubResource("ShaderMaterial_a5f5b")
+texture = ExtResource("3_f1p6o")
+
+[node name="Idle" type="Sprite2D" parent="Area2D"]
+material = SubResource("ShaderMaterial_wxs7i")
+texture = ExtResource("4_81kpq")
+
+[node name="Hurt" type="Sprite2D" parent="Area2D"]
+material = SubResource("ShaderMaterial_s7v7g")
+texture = ExtResource("3_f1p6o")
+
+[node name="RunShape" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_0jtij")

@@ -1,0 +1,67 @@
+[gd_scene load_steps=10 format=3 uid="uid://bfmd35l7su4pg"]
+
+[ext_resource type="Script" path="res://ServerDemo2/base_enemy_2.gd" id="1_yeckf"]
+[ext_resource type="Shader" path="res://PhysicsServerDemo/base_enemy.gdshader" id="2_x1pgi"]
+[ext_resource type="Texture2D" uid="uid://bmcl73cj25c4l" path="res://PhysicsServerDemo/asset/enemy/Goblin/goblin_run_spritesheet.png" id="3_eunjk"]
+[ext_resource type="Texture2D" uid="uid://t865fbsg4fn4" path="res://PhysicsServerDemo/asset/enemy/Goblin/goblin_idle_spritesheet.png" id="4_aewa6"]
+[ext_resource type="Shader" path="res://PhysicsServerDemo/enemy_flash.gdshader" id="5_gsih5"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1cjba"]
+shader = ExtResource("2_x1pgi")
+shader_parameter/default_orientation = 0.0
+shader_parameter/frames = 6
+shader_parameter/frame_duration = 0.1
+shader_parameter/texture_h_frames = 6
+shader_parameter/texture_v_frames = 1
+shader_parameter/looping = true
+shader_parameter/modulate = Color(1, 1, 1, 1)
+shader_parameter/flash_color = Color(1, 0.917647, 0.917647, 1)
+shader_parameter/flash_modifier = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k8jre"]
+shader = ExtResource("2_x1pgi")
+shader_parameter/default_orientation = 0.0
+shader_parameter/frames = 6
+shader_parameter/frame_duration = 0.1
+shader_parameter/texture_h_frames = 6
+shader_parameter/texture_v_frames = 1
+shader_parameter/looping = true
+shader_parameter/modulate = Color(1, 1, 1, 1)
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/flash_modifier = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yg0t0"]
+shader = ExtResource("5_gsih5")
+shader_parameter/default_orientation = 0.0
+shader_parameter/frames = 6
+shader_parameter/frame_duration = 0.1
+shader_parameter/texture_h_frames = 6
+shader_parameter/texture_v_frames = 1
+shader_parameter/looping = true
+shader_parameter/modulate = Color(1, 1, 1, 1)
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/flash_modifier = 1.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kp266"]
+radius = 8.06226
+
+[node name="BaseEnemy2" type="Node2D"]
+script = ExtResource("1_yeckf")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 2
+
+[node name="Run" type="Sprite2D" parent="Area2D"]
+material = SubResource("ShaderMaterial_1cjba")
+texture = ExtResource("3_eunjk")
+
+[node name="Idle" type="Sprite2D" parent="Area2D"]
+material = SubResource("ShaderMaterial_k8jre")
+texture = ExtResource("4_aewa6")
+
+[node name="Hurt" type="Sprite2D" parent="Area2D"]
+material = SubResource("ShaderMaterial_yg0t0")
+texture = ExtResource("3_eunjk")
+
+[node name="RunShape" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_kp266")

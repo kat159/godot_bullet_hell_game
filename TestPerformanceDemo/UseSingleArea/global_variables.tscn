@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dr50ot5pxfc3g"]
+
+[ext_resource type="Script" path="res://TestPerformanceDemo/UseSingleArea/global_variables.gd" id="1_fx0i3"]
+
+[node name="GlobalVariables" type="Node2D"]
+script = ExtResource("1_fx0i3")
